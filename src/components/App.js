@@ -45,9 +45,9 @@ class App extends React.Component {
               onChangeType={this.updateState}
               onFindPetsClick={this.getPets}
               />
-            </div>
+            </div><br/><br/><br/>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets={this.state.pets}/>
             </div>
           </div>
         </div>
