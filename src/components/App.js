@@ -15,6 +15,23 @@ class App extends React.Component {
     }
   }
 
+  updateState = (filter) => {
+    this.setState({
+        filters: {
+          ...this.state.filters, type: filter}
+    });
+  } // nested states require either a spread operator or an Object.assign
+
+  getPets = async () => {
+    let petFilter = this.state.filters.type;
+    let petURL = (petFilter === "all") ? "/api/pets" : `/api/pets?type=${petFilter}`;
+    const getMyPets = await fetch(petURL);
+    const petsJSON = await getMyPets.json();
+    this.setState({
+      pets: petsJSON
+    })
+  }
+
   render() {
     return (
       <div className="ui container">
@@ -24,7 +41,10 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters 
+              onChangeType={this.updateState}
+              onFindPetsClick={this.getPets}
+              />
             </div>
             <div className="twelve wide column">
               <PetBrowser />
