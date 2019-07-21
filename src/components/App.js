@@ -3,6 +3,7 @@ import React from 'react'
 import Filters from './Filters'
 import PetBrowser from './PetBrowser'
 
+
 class App extends React.Component {
   constructor() {
     super()
@@ -15,6 +16,36 @@ class App extends React.Component {
     }
   }
 
+  updateFilter = (type) => {
+    this.setState({
+      filters: {type}
+      }
+    )
+  }
+
+  getPets = () => {
+    console.log('hi')
+    const url = this.state.filters.type === 'all' ? '/api/pets' : `/api/pets?type=${this.state.filters.type}`
+    fetch(url).then(response => response.json()).then(pets => this.setState({ pets: pets }))
+  }
+
+  onAdoptPet = (pet_id) => {
+    console.log(pet_id)
+   const pets = this.state.pets.map(pet => {
+     if (pet.id === pet_id){
+       pet.isAdopted = true
+       console.log(pet.name)
+       console.log(pet.isAdopted)
+       return pet
+     } else {
+       return pet;
+     }
+   })
+   this.setState(({ pets }))
+  }
+
+  
+
   render() {
     return (
       <div className="ui container">
@@ -24,10 +55,10 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters onChangeType={this.updateFilter} onFindPetsClick={this.getPets}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets={this.state.pets} onAdoptPet={this.onAdoptPet} />
             </div>
           </div>
         </div>
