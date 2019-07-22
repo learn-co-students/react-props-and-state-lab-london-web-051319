@@ -1,38 +1,28 @@
-import React from 'react'
+import React from 'react';
+
+// ({onChangeType, onFindPetsClick, type})
 
 class Filters extends React.Component {
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.onChangeType(event.target.value);
-    console.log(event);
-  }
-
-  findNewPets = (event) => {
-    this.props.onFindPetsClick()
-  }
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.onChangeType(e);
+  };
 
   render() {
+    const {onChangeType, onFindPetsClick, type} = this.props;
     return (
-      <div className="ui form">
-        <h3>Animal type</h3>
-        <div className="field">
-          {/* <select name="type" id="type"> */}
-          <select name="type" id="type" onChange={this.handleSubmit}>
-            <option value="all">All</option>
-            <option value="cat">Cats</option>
-            <option value="dog">Dogs</option>
-            <option value="micropig">Micropigs</option>
-          </select>
-        </div>
-
-        <div className="field">
-          <button className="ui secondary button" onClick={this.findNewPets}>Find pets</button>
-          {/* <button className="ui secondary button">Find pets</button> */}
-        </div>
+      <div>
+        <select onChange={(e) => this.handleClick(e)} value={type}>
+          <option key="1" value='all'>All</option>
+          <option key="2" value="cat">Cat</option>
+          <option key="3" value="dog">Dog</option>
+          <option key="4" value="micropig">Micropig</option>
+        </select>
+        <button onClick={onFindPetsClick}>Get Pets!</button>
       </div>
     )
   }
 }
 
-export default Filters
+export default Filters;
