@@ -90,7 +90,7 @@ for ( let i = 0; i < AMOUNT_OF_PETS; i++ ) {
     type: getRandomFromArray( ANIMAL_TYPES ),
     gender: getRandomFromArray( [ 'male', 'female' ] ),
     age: getRandomAge(),
-    weight: getRandomWeight(),
+    weight: getRandomWeight()
   };
 
   pet.name = pet.gender === 'male' ? getRandomFromArray( MALE_PET_NAMES ) : getRandomFromArray( FEMALE_PET_NAMES );
